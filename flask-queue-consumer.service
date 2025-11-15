@@ -1,0 +1,17 @@
+[Unit]
+Description=Flask Queue Consumer (OCI)
+After=network.target
+
+[Service]
+Type=simple
+User=opc
+WorkingDirectory=/home/opc/fila-python
+Environment="PATH=/home/opc/venv/bin:/usr/local/bin:/usr/bin:/bin"
+Environment="VIRTUAL_ENV=/home/opc/venv"
+Environment="PYTHONPATH=/home/opc/venv/lib/python3.9/site-packages"
+ExecStart=/usr/bin/python3.9 /home/opc/fila-python/consumer.py
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

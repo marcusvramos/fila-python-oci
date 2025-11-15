@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OCI Queue Manager - Gerenciador de Filas</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="{{ url_for('static', filename='favicon.png') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="navbar-container">
+        <div class="navbar-brand">
+          <i class="fas fa-list-ul"></i>
+          <span>OCI Queue Manager</span>
+        </div>
+        <div class="navbar-actions">
+          <button
+            class="btn btn-icon"
+            onclick="carregarStats()"
+            title="Atualizar"
+          >
+            <i class="fas fa-sync-alt"></i>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main">
+      <!-- Stats Cards -->
+      <div class="stats-grid">
+        <div class="stats-card">
+          <div class="stats-icon primary">
+            <i class="fas fa-server"></i>
+          </div>
+          <div class="stats-content">
+            <h3 id="queueName">Carregando...</h3>
+            <p>Nome da Fila</p>
+          </div>
+        </div>
+        <div class="stats-card">
+          <div class="stats-icon success">
+            <i class="fas fa-check-circle"></i>
+          </div>
+          <div class="stats-content">
+            <h3 id="queueStatus">Carregando...</h3>
+            <p>Status</p>
+          </div>
+        </div>
+        <div class="stats-card">
+          <div class="stats-icon warning">
+            <i class="fas fa-map-marker-alt"></i>
+          </div>
+          <div class="stats-content">
+            <h3 id="queueRegion">Carregando...</h3>
+            <p>Região</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Publish Message Section -->
+      <div class="section-card">
+        <div class="section-header">
+          <div class="section-title">
+            <i class="fas fa-paper-plane"></i>
+            <h2>Publicar Mensagem</h2>
+          </div>
+        </div>
+
+        <div class="tabs">
+          <button class="tab-btn active" onclick="selecionarTab('normal')">
+            <i class="fas fa-envelope"></i>
+            Fila Normal
+          </button>
+          <button class="tab-btn" onclick="selecionarTab('canal')">
+            <i class="fas fa-broadcast-tower"></i>
+            Com Canal
+          </button>
+        </div>
+
+        <!-- Tab Normal -->
+        <div id="tabNormal" class="tab-content active">
+          <form id="formNormal" class="message-form">
+            <div class="form-group">
+              <label for="emailNormal">
+                <i class="fas fa-envelope"></i>
+                E-mail do Destinatário
+              </label>
+              <input
+                type="email"
+                id="emailNormal"
+                class="form-control"
+                placeholder="exemplo@email.com"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="mensagemNormal">
+                <i class="fas fa-comment-alt"></i>
+                Mensagem
+              </label>
+              <textarea
+                id="mensagemNormal"
+                class="form-control"
+                rows="4"
+                placeholder="Digite sua mensagem aqui..."
+                required
+              ></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-lg">
+              <i class="fas fa-paper-plane"></i>
+              Enviar para Fila
+            </button>
+          </form>
+        </div>
+
+        <!-- Tab Canal -->
+        <div id="tabCanal" class="tab-content">
+          <form id="formCanal" class="message-form">
+            <div class="form-group">
+              <label for="emailCanal">
+                <i class="fas fa-envelope"></i>
+                E-mail do Destinatário
+              </label>
+              <input
+                type="email"
+                id="emailCanal"
+                class="form-control"
+                placeholder="exemplo@email.com"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="canalId">
+                <i class="fas fa-hashtag"></i>
+                ID do Canal
+              </label>
+              <input
+                type="text"
+                id="canalId"
+                class="form-control"
+                placeholder="canal1"
+                value="canal1"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="mensagemCanal">
+                <i class="fas fa-comment-alt"></i>
+                Mensagem
+              </label>
+              <textarea
+                id="mensagemCanal"
+                class="form-control"
+                rows="4"
+                placeholder="Digite sua mensagem aqui..."
+                required
+              ></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-lg">
+              <i class="fas fa-broadcast-tower"></i>
+              Enviar para Canal
+            </button>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <!-- Toast Notifications -->
+    <div id="toast" class="toast"></div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+  </body>
+</html>
